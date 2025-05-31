@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>EAGLE Token - Web3 Utility Token</title>
+<style> /* your existing styles here, unchanged */
+  /* Reset and base */
+  body {
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #000428, #004e92);
+    color: #00cfff;
+    overflow-x: hidden;
+    transition: background 0.4s, color 0.4s;
+  }
+  a {
+    color: #00cfff;
+    text-decoration: none;
+  }
+  a:hover {
+    text-decoration: underline;
+  }
+  header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px 30px;
+    background: rgba(0, 0, 0, 0.75);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+  }
+  header img {
+    height: 40px;
+  }
+  header h1 {
+    margin-left: 15px;
+    font-weight: 700;
+    font-size: 1.6rem;
+  }
+  .toggle-btn {
+    cursor: pointer;
+    color: #00cfff;
+    font-size: 1.5rem;
+  }
+  main {
+    max-width: 960px;
+    margin: 40px auto;
+    padding: 0 15px 80px;
+  }
+  h2 {
+    text-align: center;
+    font-size: 2.4rem;
+    margin-bottom: 15px;
+    color: #00e0ff;
+    text-shadow: 0 0 10px #00cfff;
+  }
+  .glass {
+    background: rgba(0, 0, 0, 0.45);
+    border-radius: 15px;
+    padding: 30px 25px;
+    margin-bottom: 50px;
+    box-shadow: 0 0 15px #00cfff66;
+    backdrop-filter: blur(15px);
+  }
+  p {
+    font-size: 1.1rem;
+    line-height: 1.5;
+  }
+  ul {
+    line-height: 1.6;
+  }
+  /* Stats Section */
+  #stats {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 25px;
+  }
+  #stats > div {
+    flex: 1 1 160px;
+    background: rgba(0, 204, 255, 0.2);
+    padding: 20px;
+    border-radius: 12px;
+    text-align: center;
+    font-weight: 600;
+    box-shadow: 0 0 10px #00cfffaa;
+    transition: transform 0.3s;
+  }
+  #stats > div:hover {
+    transform: scale(1.07);
+  }
+  #stats h3 {
+    font-size: 2rem;
+    margin: 0 0 8px;
+    color: #00e0ff;
+  }
+  #stats p {
+    margin: 0;
+    font-size: 1rem;
+    color: #cceeff;
+  }
+
+  /* Timeline styles for Roadmap */
+  #roadmap ul {
+    position: relative;
+    padding-left: 40px;
+    list-style: none;
+  }
+  #roadmap ul::before {
+    content: '';
+    position: absolute;
+    left: 15px;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background: #00cfff;
+    border-radius: 2px;
+  }
+  #roadmap ul li {
+    position: relative;
+    margin-bottom: 30px;
+    padding-left: 20px;
+    font-size: 1.1rem;
+  }
+  #roadmap ul li::before {
+    content: '';
+    position: absolute;
+    left: -25px;
+    top: 5px;
+    width: 14px;
+    height: 14px;
+    background: #007bff;
+    border-radius: 50%;
+    border: 3px solid #00cfff;
+  }
+
+  /* Smaller Tokenomics Pie Chart */
+  #tokenomics canvas#tokenChart {
+    max-width: 250px;
+    max-height: 250px;
+    margin: 0 auto 20px auto;
+    display: block;
+  }
+  /* Center Tokenomics text list under smaller chart */
+  #tokenomics ul {
+    text-align: center;
+    padding: 0;
+    margin: 0;
+    list-style-type: none;
+  }
+  #tokenomics ul li {
+    margin: 6px 0;
+  }
+
+  /* Newsletter Form */
+  form {
+    text-align: center;
+  }
+  form input[type="email"] {
+    padding: 10px;
+    width: 250px;
+    border-radius: 5px;
+    border: none;
+    outline: none;
+    font-size: 1rem;
+    margin-right: 10px;
+  }
+  form button {
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: none;
+    background-color: #00cfff;
+    color: #000;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  form button:hover {
+    background-color: #007bff;
+    color: #fff;
+  }
+
+  /* Partners Section */
+  #partners div a {
+    color: #00cfff;
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    width: 120px;
+    transition: transform 0.3s;
+  }
+  #partners div a:hover {
+    transform: scale(1.1);
+  }
+  #partners div img {
+    height: 60px;
+    border-radius: 8px;
+  }
+
+  /* Buttons for Blum and Stonfi */
+  #partnerButtons {
+    text-align: center;
+    margin-top: 20px;
+  }
+  #partnerButtons button {
+    background-color: #00cfff;
+    color: #000;
+    border: none;
+    padding: 12px 24px;
+    margin: 0 15px;
+    font-weight: 600;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-size: 1rem;
+  }
+  #partnerButtons button:hover {
+    background-color: #007bff;
+    color: #fff;
+  }
+
+  /* Dark Mode */
+  body.light {
+    background: #e0f7ff;
+    color: #002244;
+  }
+  body.light .glass {
+    background: rgba(255, 255, 255, 0.75);
+    box-shadow: 0 0 15px #007bff66;
+    color: #002244;
+  }
+  body.light a {
+    color: #0055cc;
+  }
+  body.light a:hover {
+    text-decoration: underline;
+  }
+  body.light header {
+    background: rgba(255, 255, 255, 0.85);
+    color: #002244;
+  }
+  body.light #stats > div {
+    background: rgba(0, 123, 255, 0.15);
+    box-shadow: 0 0 10px #007bffaa;
+    color: #002244;
+  }
+  body.light form button {
+    background-color: #007bff;
+    color: #fff;
+  }
+  body.light form button:hover {
+    background-color: #004a99;
+  }
+
+  /* Scroll animations */
+  .glass {
+    opacity: 0;
+    transform: translateY(100px);
+    transition: all 0.6s ease-out;
+  }
+  .glass.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+</style>
+
+<!-- FontAwesome for toggle icon -->
+<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</head>
+<body>
+
+<header>
+  <div style="display:flex; align-items:center;">
+    <img src="eagle-logo.png" alt="EAGLE Token Logo" />
+    <h1>EAGLE Token</h1>
+  </div>
+  <div class="toggle-btn" onclick="toggleTheme()" title="Toggle Dark/Light Mode">
+    <i class="fas fa-moon"></i>
+  </div>
+</header>
+
+<main>
+  <section class="glass visible" id="about">
+    <h2>About EAGLE Token</h2>
+    <p>EAGLE is a cutting-edge Web3 utility token built on the TON blockchain designed to empower traders with premium trading signals, staking rewards, and governance capabilities. With a total supply of 1 billion tokens, EAGLE aims to revolutionize crypto signal platforms by combining decentralized finance, community governance, and secure, transparent tokenomics.</p>
+    <p>Holders of EAGLE token gain exclusive access to advanced trading tools, a private Telegram signal group, and upcoming staking and DAO features. Supported by trusted partners like Blum.io, STON.fi, and the TON ecosystem, EAGLE is positioned as a forward-thinking project bridging DeFi and real trading utility.</p>
+  </section>
+
+  <section class="glass visible" id="stats">
+    <div>
+      <h3 id="totalSupply">0</h3>
+      <p>Total Supply</p>
+    </div>
+    <div>
+      <h3 id="circulatingSupply">0</h3>
+      <p>Circulating Supply</p>
+    </div>
+    <div>
+      <h3 id="marketCap">-</h3>
+      <p>Market Cap (USD)</p>
+    </div>
+    <div>
+      <h3 id="holders">-</h3>
+      <p>Token Holders</p>
+    </div>
+  </section>
+
+  <section class="glass visible" id="tokenomics">
+    <h2>Tokenomics</h2>
+    <canvas id="tokenChart"></canvas>
+    <ul>
+      <li>70% - Community & Rewards</li>
+      <li>15% - Team & Advisors</li>
+      <li>10% - Marketing & Partnership</li>
+      <li>5% - Liquidity & Treasury</li>
+    </ul>
+  </section>
+
+  <!-- Token Utility Section -->
+  <section class="glass visible" id="utility">
+    <h2>Token Utility</h2>
+    <ul>
+      <li><strong>Premium Trading Signals:</strong> Access to exclusive real-time crypto trading signals and alerts.</li>
+      <li><strong>Staking Rewards:</strong> Stake your EAGLE tokens to earn passive income and unlock benefits.</li>
+      <li><strong>Governance:</strong> Participate in DAO voting to influence project decisions and roadmap.</li>
+      <li><strong>Community Access:</strong> Join a private Telegram group for holders with insights and support.</li>
+      <li><strong>Liquidity & Partnership Incentives:</strong> Benefit from partnership rewards and liquidity mining.</li>
+    </ul>
+  </section>
+
+  <section class="glass visible" id="roadmap">
+    <h2>Roadmap</h2>
+    <ul>
+      <li>Q2 2025: Token launch on TON blockchain</li>
+      <li>Q3 2025: Integration with Blum.io & STON.fi</li>
+      <li>Q4 2025: Launch staking and DAO voting platform</li>
+      <li>Q1 2026: Expand community & strategic partnerships</li>
+    </ul>
+  </section>
+
+  <section class="glass visible" id="partners">
+    <h2>Partners</h2>
+    <div style="display:flex; justify-content:center; gap:40px; flex-wrap:wrap;">
+      <a href="https://blum.io" target="_blank" rel="noopener" title="Blum.io">
+        <img src="blum-logo.png" alt="Blum.io Logo" />
+        Blum.io
+      </a>
+      <a href="https://stonfi.com" target="_blank" rel="noopener" title="STON.fi">
+        <img src="stonfi-logo.png" alt="STON.fi Logo" />
+        STON.fi
+      </a>
+      <a href="https://ton.org" target="_blank" rel="noopener" title="TON Blockchain">
+        <img src="ton-logo.png" alt="TON Logo" />
+        TON Blockchain
+      </a>
+    </div>
+  </section>
+
+  <!-- Added Buttons for Blum and STON.fi -->
+  <section id="partnerButtons" class="glass visible">
+    <button onclick="window.open('https://blum.io', '_blank')" aria-label="Visit Blum.io website">
+      Blum.io
+    </button>
+    <button onclick="window.open('https://stonfi.com', '_blank')" aria-label="Visit STON.fi website">
+      STON.fi
+    </button>
+  </section>
+</main>
+
+<footer style="text-align:center; padding: 15px 0; color: #00cfff; background: rgba(0,0,0,0.5); font-size: 0.9rem; font-weight: 500;">
+  © 2025 All rights reserved.
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+  // Theme toggle
+  function toggleTheme() {
+    document.body.classList.toggle('light');
+  }
+
+  // Animate stats counters
+  const totalSupplyEl = document.getElementById('totalSupply');
+  const circulatingSupplyEl = document.getElementById('circulatingSupply');
+
+  const totalSupply = 1_000_000_000;
+  const circulatingSupply = 700_000_000; // Example value
+
+  function animateCounter(el, target, duration = 2000) {
+    let start = 0;
+    const stepTime = Math.max(10, Math.floor(duration / target));
+    const increment = Math.ceil(target / (duration / stepTime));
+    const timer = setInterval(() => {
+      start += increment;
+      if (start >= target) {
+        start = target;
+        clearInterval(timer);
+      }
+      el.textContent = start.toLocaleString();
+    }, stepTime);
+  }
+
+  animateCounter(totalSupplyEl, totalSupply);
+  animateCounter(circulatingSupplyEl, circulatingSupply);
+
+  // Tokenomics pie chart
+  const ctx = document.getElementById('tokenChart').getContext('2d');
+  const data = {
+    labels: ['Community & Rewards', 'Team & Advisors', 'Marketing & Partnership', 'Liquidity & Treasury'],
+    datasets: [{
+      label: 'Tokenomics',
+      data: [70, 15, 10, 5],
+      backgroundColor: ['#00cfff', '#007bff', '#00aaff', '#005f9e'],
+      borderWidth: 1
+    }]
+  };
+  const config = {
+    type: 'doughnut',
+    data: data,
+    options: {
+      responsive: true,
+      cutout: '65%',
+      plugins: {
+        legend: { position: 'bottom', labels: { color: '#00cfff', font: { weight: '600' } } },
+      }
+    }
+  };
+  new Chart(ctx, config);
+</script>
+
+</body>
+</html>
